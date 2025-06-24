@@ -5,6 +5,6 @@ FROM n8nio/n8n
 USER root
 
 # Instalamos SOLAMENTE Nmap y Git, que sabemos que funcionan.
-RUN apk add --no-cache nmap git
+RUN apk add --no-cache nmap nmap-nselibs
 
 
