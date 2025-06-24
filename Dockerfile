@@ -6,8 +6,9 @@ RUN apk add --no-cache nmap git
 
 WORKDIR /home/node/.n8n
 
-# Clonamos los repositorios manualmente
-RUN git clone https://github.com/n8n-io/n8n-nodes-shodan.git && \
-    git clone https://github.com/n8n-io/n8n-nodes-zoomeye.git && \
+RUN git config --global --add safe.directory /home/node/.n8n && \
+    git -c credential.helper= clone https://github.com/n8n-io/n8n-nodes-shodan.git && \
+    git -c credential.helper= clone https://github.com/n8n-io/n8n-nodes-zoomeye.git && \
     npm install ./n8n-nodes-shodan && \
     npm install ./n8n-nodes-zoomeye
+
