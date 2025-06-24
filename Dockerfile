@@ -7,6 +7,5 @@ USER root
 # 1. Instalamos las herramientas del sistema operativo
 RUN apk add --no-cache nmap git
 
-# 2. INSTALAMOS LOS NODOS DE LA COMUNIDAD DIRECTAMENTE
-# Este es el nuevo paso clave. Es más robusto que usar variables de entorno.
-RUN cd /home/node/.n8n && npm install n8n-nodes-shodan n8n-nodes-zoomeye
+# 2. INSTALAMOS LOS NODOS DE LA COMUNIDAD (con los nombres oficiales y correctos)
+RUN cd /home/node/.n8n && npm install @n8n-community/n8n-nodes-shodan @n8n-community/n8n-nodes-zoomeye
