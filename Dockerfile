@@ -4,7 +4,7 @@ FROM n8nio/n8n
 # Pasamos a root para poder instalar paquetes
 USER root
 
-# Instalamos Nmap y WhatWeb. NADA MÁS.
-RUN apk add --no-cache nmap whatweb
+# Instalamos SOLAMENTE Nmap y Git, que sabemos que funcionan.
+RUN apk add --no-cache nmap git
 
 
