@@ -1,22 +1,27 @@
-# Partimos de la imagen oficial de n8n
+# Usamos la imagen oficial de n8n como base
 FROM n8nio/n8n
 
-# Pasamos a root para poder instalar paquetes
+# Cambiamos a root para poder instalar paquetes
 USER root
 
-# Instalamos nmap, git, curl y unzip
+# Instalamos las herramientas necesarias: nmap, git, curl y unzip
 RUN apk add --no-cache nmap git curl unzip
 
-# Establecemos el directorio de trabajo
+# Forzamos a git a usar HTTPS en lugar de SSH para evitar problemas de autenticación
+RUN git config --global url."https://github.com/".insteadOf git@github.com:
+
+# Definimos el directorio de trabajo donde n8n guarda sus cosas
 WORKDIR /home/node/.n8n
 
-# Descargamos y descomprimimos los nodos, e instalamos con npm
-RUN curl -L -o n8n-nodes-shodan.zip https://github.com/n8n-io/n8n-nodes-shodan/archive/refs/heads/master.zip && \
-    unzip n8n-nodes-shodan.zip && \
-    npm install ./n8n-nodes-shodan-master && \
-    curl -L -o n8n-nodes-zoomeye.zip https://github.com/n8n-io/n8n-nodes-zoomeye/archive/refs/heads/master.zip && \
-    unzip n8n-nodes-zoomeye.zip && \
-    npm install ./n8n-nodes-zoomeye-master
+# Clonamos los repositorios directamente con git usando HTTPS y los instalamos con npm
+RUN git clone https://github.com/n8n-io/n8n-nodes-shodan.git && \
+    git clone https://github.com/n8n-io/n8n-nodes-zoomeye.git && \
+    npm install ./n8n-nodes-shodan && \
+    npm install ./n8n-nodes-zoomeye
+
+# Volvemos a usar el usuario 'node' para que n8n funcione con los permisos correctos
+USER node
+
 
 
 
