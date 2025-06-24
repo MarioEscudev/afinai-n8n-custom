@@ -4,7 +4,7 @@ USER root
 
 RUN apk add --no-cache nmap git
 
-RUN cd /home/node/.n8n && \
-    npm install git+https://github.com/n8n-io/n8n-nodes-shodan.git && \
-    npm install git+https://github.com/n8n-io/n8n-nodes-zoomeye.git
+WORKDIR /home/node/.n8n
 
+RUN npm install https://github.com/n8n-io/n8n-nodes-shodan.git && \
+    npm install https://github.com/n8n-io/n8n-nodes-zoomeye.git
